@@ -1,0 +1,6 @@
+[
+ {"id":"movie5","name":"88VIP观影券","scene":"movie","provider":"观影合作渠道（待核实）","parent":"88VIP生活卡","value_type":"cash","amount":5,"min_order":5.01,"period":"领取后当月有效","source":"88VIP全部权益页面摘要：两张5元券，满5.01可用","verified":"页面摘要已观察；渠道、场次、叠加与领取规则未完整核验","status":"partial"},
+ {"id":"breakfast","name":"飞猪F3免费早餐","scene":"hotel","provider":"飞猪","parent":"88VIP生活卡 → 飞猪F3","value_type":"service","annual_count":2,"period":"2次/年（页面展示）","source":"88VIP全部权益页面摘要：酒店免费早餐2次/年","verified":"页面摘要已观察；具体酒店、房型、人数、激活和开卡后使用条件待核验","status":"partial"},
+ {"id":"food5","name":"闪购超级吃货卡红包","scene":"food","provider":"淘宝闪购","parent":"88VIP生活卡","value_type":"cash","amount":5,"monthly_count":4,"period":"每月可领4张5元红包（页面展示）","source":"全部权益及会员助手页面摘要","verified":"页面摘要已观察；适用商户、订单、叠加、红包状态待核验","status":"partial"},
+ {"id":"refund12","name":"飞猪机票退票费88折","scene":"refund","provider":"飞猪","parent":"88VIP → 飞猪相关权益","value_type":"rate","rate":0.12,"annual_count":5,"source":"88VIP全部权益页面摘要：退票费88折、5次/年","verified":"页面摘要已观察；适用航线、订单及新开卡资格未完整核验","status":"partial"}
+]
