@@ -36,7 +36,94 @@ body[data-view=consumer] .side,body[data-view=consumer] .backend-nav{display:non
 .jcard:hover img{transform:scale(1.025)}
 .jcard button:focus-visible,.view-toggle button:focus-visible,.phone button:focus-visible{outline:2px solid #c18a4f;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.jcard img{transition:none}}
-</style><header><strong><span class="brand">✧</span> MemberShip AI</strong><small>V1.6 · 消费全链路 / 策略评测</small><div class="view-toggle" aria-label="切换工作视图"><button id="viewConsumer" type="button" aria-pressed="true">♙ 消费者体验版</button><button id="viewBackend" type="button" aria-pressed="false">▥ 策略与评测后台</button></div></header><main class="shell"><nav class="backend-nav" aria-label="后台导航"><strong>策略与评测</strong><button type="button" data-section="dashboard" class="active">▥　策略总览</button><button type="button" data-section="modelpanel">◎　策略与模型</button><button type="button" data-section="evaluation">◇　实验与评测</button><button type="button" data-section="orderpanel">▤　模拟业务接口</button><button type="button" data-section="knowledge">▧　权益知识库</button><button type="button" data-section="trace">≡　决策日志</button><small>88VIP 会员价值经营<br>独立概念验证 · 仅演示数据</small></nav><div class="phonewrap"><div class="consumer-demo"><b>消费者端预览</b><span class="stepnote">演示数据 · 不产生实际交易</span></div><section class="phone"><div class="status"><span>9:41</span><span>▮▮▮ 5G ▰</span></div><div class="nav"><button id="back" aria-label="返回" disabled>‹</button><span class="brand">✧</span><span id="navtitle">AI 万能搜</span><span class="dots">···</span></div><div class="consumer-controls"><span>体验身份</span><div class="profile-toggle"><button type="button" data-profile="vip">88VIP会员</button><button type="button" data-profile="normal">非会员</button></div></div><div id="entry"><div class="query"><textarea id="query">周末想去杭州住一晚，想要早餐，晚上看场电影，预算600左右。</textarea><small>✦ 消费需求理解</small></div><button class="mainbtn" id="run">生成消费方案</button></div><div id="result" class="result"><div class="muted">正在准备模拟消费方案…</div></div></section></div><section class="experience" aria-label="消费者体验概览"><div class="experience-hero"><div class="hero-eyebrow">✧ MEMBERSHIP AI · 会员权益助手</div><h1>你的 88VIP 生活搭子</h1><p>说出你的消费需求，发现适用的会员权益。从酒店到观影，让每一次消费都更心中有数。</p><div class="hero-features"><span>✧ 理解需求</span><span>◇ 匹配权益</span><span>✓ 核验条件</span><span>▤ 确认方案</span></div></div><section class="journey"><div class="journey-top"><div><h2>消费全流程体验</h2><p>点击左侧手机或下方卡片，体验完整消费过程</p></div><div class="profile-toggle" aria-label="演示会员身份"><button type="button" data-profile="vip">88VIP会员</button><button type="button" data-profile="normal">非会员</button></div></div><div id="journeySteps" class="journey-steps"></div><div class="journey-grid" id="journeyCards"></div><p class="journey-note">独立产品概念演示 · 房源、场次、价格及权益资格为示例 · 不会产生实际订单。</p></section></section><aside class="side" id="dashboard"><h1>策略与评测后台</h1><p>会员权益 · 决策配置 · 效果验证 | 当前仅使用演示数据</p><div class="metrics" id="metrics"><div class="metric"><span>本次匹配权益</span><strong id="metricBenefits">—</strong><small>当前演示可用项</small></div><div class="metric"><span>本次预计节省</span><strong id="metricSaving">—</strong><small>非会员按扣除年费后计算</small></div><div class="metric"><span>预算内达成</span><strong id="metricBudget">—</strong><small>当前方案判断，非真实统计</small></div><div class="metric"><span>本次会话决策次数</span><strong id="metricRuns">0</strong><small>仅本浏览器本次会话</small></div></div><div class="panel" id="evaluation"><h2>实验与效果评测</h2><div class="evaluation-box"><div><b>A · 规则基线</b><p>可运行 · 关键词意图理解</p><p>规则核验与确定性计算</p></div><div><b>B · 大模型意图理解</b><p>待接入真实模型并开展评测</p><p>尚无真实 A/B 转化数据</p></div></div><p class="source">目标指标：权益发现率、推荐准确率、预算内达成率、开卡意愿及长期留存。真实用户实验尚未开展。</p></div><div class="panel" id="modelpanel"><h2>规则 / 模型与资格核验</h2><div class="choices" id="members"><button class="on" data-v="vip">88VIP 已开通</button><button data-v="normal">尚未开卡</button></div><div class="fields"><div><label for="fee">模拟开卡年费 ¥</label><input type="number" id="fee" min="0" value="88"></div><div><label for="mode">意图理解方式</label><select id="mode"><option value="rules">规则基线</option><option value="llm">大模型（需配置）</option></select></div></div><div class="checks"><label><input type="checkbox" id="qualified" checked> 开卡及即时使用资格已模拟核验</label></div><div class="source" id="modelstatus"></div></div><div class="panel"><h2>快速场景</h2><div class="scenarios"><button data-s="trip">周末旅行</button><button data-s="movie">单独观影</button><button data-s="food">点外卖</button><button data-s="refund">申请退票</button><button data-s="overlap">权益重叠</button><button data-s="unknown">资格未知</button></div></div><div class="panel" id="orderpanel"><h2>模拟业务接口</h2><p class="source">价格、余额、资格及服务条件是测试输入，不代表真实订单。</p><div id="orders"></div></div><div class="panel" id="trace"><details open><summary>决策日志 · 研发 / 评测</summary><div class="trace" id="log">等待运行</div></details></div><div class="panel" id="knowledge"><details><summary>权益知识库 · 来源及核验边界</summary><div class="trace" id="kb">加载中</div></details></div></aside></main><script>
+
+/* V1.7 · Device ergonomics and commerce interaction polish */
+:root{--device-w:390px;--device-h:844px;--device-scale:.88;--surface:#fffdf9;--ink-strong:#28221d;--hairline:#ede4da}
+html{scroll-behavior:auto}
+.shell{grid-template-columns:calc(var(--device-w) * var(--device-scale)) minmax(0,1fr);gap:32px;max-width:1350px;align-items:start;margin-top:23px}
+.phonewrap{width:calc(var(--device-w) * var(--device-scale));top:91px;min-width:0}
+.device-stage{height:calc(var(--device-h) * var(--device-scale));width:calc(var(--device-w) * var(--device-scale));position:relative}
+.phone,body[data-view=backend] .phone{display:flex;flex-direction:column;position:absolute;left:0;top:0;width:var(--device-w);height:var(--device-h);min-height:var(--device-h);max-height:none;max-width:none;transform:scale(var(--device-scale));transform-origin:top left;border:6px solid #302720;border-radius:46px;overflow:hidden;box-shadow:0 16px 38px #3020162c,0 0 0 1px #ad9176,0 0 0 3px #ead6bc;background:#fffdfb}
+.phone .status{position:relative;flex:none;min-height:42px;padding:14px 24px 5px;font-size:13px;align-items:center}
+.phone .status:after{content:"";width:104px;height:25px;position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#171411;border-radius:18px;box-shadow:0 1px 2px #0004}
+.phone .nav{flex:none;min-height:53px;padding:7px 13px;font-size:18px;gap:7px}
+.phone .nav button{width:40px;height:40px;flex:none;border-radius:11px;display:grid;place-items:center;font-size:30px;padding:0 0 3px;line-height:1}
+.phone .nav button:not(:disabled):hover{background:#ffffff18}
+.phone .nav .dots{font-size:20px;margin-left:auto;padding-right:8px}
+.phone .consumer-controls{flex:none;padding:8px 14px;min-height:41px;background:#faf5ed}
+.phone .profile-toggle button{min-height:28px}
+.phone-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#dfcbb4 transparent;scroll-padding:12px;background:#fffdfb}
+.phone-scroll::-webkit-scrollbar{width:4px}.phone-scroll::-webkit-scrollbar-thumb{background:#ddcbb6;border-radius:6px}
+.phone-dock{flex:none;background:#fffdfa;border-top:1px solid #ebdfd0;padding:10px 14px 5px;box-shadow:0 -7px 18px #38241009;z-index:2}
+.phone-dock[hidden]{display:none}
+.phone-dock .actions{margin:0;gap:6px}
+.phone-dock .actions button{min-height:44px;padding:10px 8px;border-radius:12px;font-size:14px}
+.phone-dock .actions .secondary{min-height:34px;padding:7px 8px;background:transparent;border:1px solid #e9dfd0;color:#78634c;font-size:12px}
+.phone-dock .actions:empty{display:none}
+.home-indicator{height:18px;display:flex;justify-content:center;align-items:center;background:#fffdfa;flex:none}
+.home-indicator:after{content:"";width:112px;height:4px;border-radius:6px;background:#302923}
+.phone .result{padding:14px 15px 22px}
+.phone .query{margin:15px 14px 10px;padding:13px 13px 10px;border-radius:16px}
+.phone .query textarea{min-height:82px;font-size:15px;font-weight:550;line-height:1.7;color:#392d23}
+.phone .query textarea:focus-visible{outline:1px solid #c5a17b;border-radius:4px}
+.phone .query small{display:block;margin-top:4px;font-size:11px}
+.phone .mainbtn{min-height:45px;border-radius:13px;margin-bottom:8px}
+.phone .member{padding:15px;border-radius:16px}
+.phone .member h3{font-size:29px;letter-spacing:-1px}
+.phone .member .member-link{min-height:34px;padding:7px 12px;border-radius:9px}
+.phone .item{padding:12px 0;border-color:#f0e8dd}
+.phone .state{padding:3px 7px;white-space:nowrap}
+.phone .amounts{padding:13px 14px;border-radius:14px}
+.phone .amounts .total b{font-size:26px;letter-spacing:-.6px}
+.phone .scene-list h3{font-size:17px;letter-spacing:-.3px}
+.phone .scene-card{padding:10px;gap:10px;border-radius:14px}
+.phone .scene-art{width:79px;height:82px;border-radius:10px}
+.phone .scene-copy b{font-size:14px;line-height:1.4}.phone .scene-copy small{line-height:1.5}
+.phone .scene-card button{min-height:36px;min-width:64px;padding:6px 9px}
+.phone .detail-title{font-size:23px;letter-spacing:-.6px}
+.phone .detail-card{padding:13px;border-radius:13px}
+.phone .scene-head{border-radius:15px}
+.phone .scene-head .cover{height:195px}
+.phone .scene-head .intro{padding:13px}
+.phone .scene-head h2{font-size:21px;letter-spacing:-.4px}
+.phone .scene-notice{border:1px solid #f0d9b9;border-radius:12px;line-height:1.65}
+.phone .offer{padding:11px 10px;gap:9px;border-radius:13px;align-items:center}
+.phone .offer-thumb{width:77px;height:91px;object-fit:cover}
+.phone .offer-main b{font-size:14px;line-height:1.45}
+.phone .offer-main p{line-height:1.5;margin:4px 0}
+.phone .offer button{min-height:40px;min-width:57px;border-radius:10px;font-size:13px;padding:7px 10px}
+.phone .offer.selected{border:1px solid #c99e6a;background:#fff8ee}
+.phone .offer .offerprice{font-size:21px;letter-spacing:-.5px}
+.phone .offer .offerprice small{font-size:10px;font-weight:400;color:#8e7b69}
+.phone .seat-grid{gap:6px;grid-template-columns:repeat(4,minmax(0,1fr)) 12px repeat(4,minmax(0,1fr));padding:8px 0 12px}
+.phone .seat-grid .seat:nth-child(8n+5){grid-column:6}
+.phone .seat{min-height:37px;border-radius:8px 8px 4px 4px;font-size:11px;position:relative}
+.phone .seat:before{content:"";position:absolute;left:4px;right:4px;bottom:3px;border-bottom:2px solid currentColor;opacity:.18}
+.phone .seat:disabled{opacity:.8}
+.phone .seat.chosen{background:#9c6839;color:#fff;border-color:#9c6839}
+.phone .seat-screen{margin:14px auto 20px;border-top:5px solid #d6cec2}
+.phone .scene-summary{border:1px solid #eadbca;border-radius:14px}
+.phone .selected-note{font-size:12px;line-height:1.5;color:#39754c}
+.phone .quote-note{line-height:1.65;color:#897d6e}
+.phone .step{margin-bottom:14px}
+.phone .step b{color:#87562e}
+.phone .checkmark{margin-top:35px}
+.phone button:focus-visible{outline:2px solid #ac773e;outline-offset:2px}
+.consumer-demo{font-size:11px;gap:6px;white-space:nowrap}
+.device-caption{font-size:10px;color:#9c8a78;text-align:center;margin:9px 0 0}
+.journey-grid{gap:14px}.jcard .jcard-body{padding:15px}.jcard img{height:150px}
+.jcard button{min-height:39px;display:flex;align-items:center}
+.jcard button:hover:not(:disabled){background:#efddc3}
+.journey-steps button{flex:1;min-width:0;border:0;background:#f5eee4;color:#8d7051;padding:9px 5px;border-radius:9px;font-size:11px;white-space:nowrap}
+.journey-steps button.active{background:#e8cfaf;color:#694321;font-weight:700}
+.journey-steps button:disabled{opacity:.45;cursor:default}
+.journey-steps button:not(:disabled):hover{background:#efdfc9}
+body[data-view=backend] .shell{grid-template-columns:164px calc(var(--device-w) * var(--device-scale)) minmax(0,1fr);gap:18px}
+body[data-view=backend] .phonewrap{width:calc(var(--device-w) * var(--device-scale));top:91px}
+body[data-view=backend] .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:1100px){body[data-view=backend] .shell{grid-template-columns:calc(var(--device-w) * var(--device-scale)) minmax(0,1fr)}.shell{gap:20px}.jcard img{height:125px}}
+@media(max-width:780px){.shell,body[data-view=backend] .shell{display:flex;max-width:520px;margin:12px auto;padding:0 12px}.phonewrap,body[data-view=backend] .phonewrap{width:100%;position:static;max-width:420px;margin:auto}.device-stage{width:100%;height:min(844px,calc(100dvh - 108px));min-height:530px}.phone,body[data-view=backend] .phone{width:100%;height:100%;min-height:0;transform:none;border:0;border-radius:24px;box-shadow:0 8px 24px #5a3b1a16;outline:1px solid #dfd1bf}.phone .status:after{display:none}.home-indicator{display:none}.phone-dock{padding-bottom:12px}.device-caption{display:none}.journey-grid{gap:10px}.jcard img{height:120px}}
+</style><header><strong><span class="brand">✧</span> MemberShip AI</strong><small>V1.7 · 消费体验 / 策略评测</small><div class="view-toggle" aria-label="切换工作视图"><button id="viewConsumer" type="button" aria-pressed="true">♙ 消费者体验版</button><button id="viewBackend" type="button" aria-pressed="false">▥ 策略与评测后台</button></div></header><main class="shell"><nav class="backend-nav" aria-label="后台导航"><strong>策略与评测</strong><button type="button" data-section="dashboard" class="active">▥　策略总览</button><button type="button" data-section="modelpanel">◎　策略与模型</button><button type="button" data-section="evaluation">◇　实验与评测</button><button type="button" data-section="orderpanel">▤　模拟业务接口</button><button type="button" data-section="knowledge">▧　权益知识库</button><button type="button" data-section="trace">≡　决策日志</button><small>88VIP 会员价值经营<br>独立概念验证 · 仅演示数据</small></nav><div class="phonewrap"><div class="consumer-demo"><b>消费者端预览</b><span class="stepnote">演示数据 · 不产生实际交易</span></div><div class="device-stage"><section class="phone" aria-label="移动端消费者体验"><div class="status"><span>9:41</span><span>▮▮▮ 5G ▰</span></div><div class="nav"><button id="back" aria-label="返回" disabled>‹</button><span class="brand">✧</span><span id="navtitle">AI 万能搜</span><span class="dots">···</span></div><div class="consumer-controls"><span>体验身份</span><div class="profile-toggle"><button type="button" data-profile="vip">88VIP会员</button><button type="button" data-profile="normal">非会员</button></div></div><div class="phone-scroll" id="phoneScroll" tabindex="0" aria-label="手机页面内容"><div id="entry"><div class="query"><textarea id="query">周末想去杭州住一晚，想要早餐，晚上看场电影，预算600左右。</textarea><small>✦ 消费需求理解</small></div><button class="mainbtn" id="run">生成消费方案</button></div><div id="result" class="result" aria-live="polite"><div class="muted">正在准备模拟消费方案…</div></div></div><div class="phone-dock" id="phoneDock" hidden></div><div class="home-indicator" aria-hidden="true"></div></section></div><div class="device-caption">390 × 844 · 自适应移动端预览</div></div><section class="experience" aria-label="消费者体验概览"><div class="experience-hero"><div class="hero-eyebrow">✧ MEMBERSHIP AI · 会员权益助手</div><h1>你的 88VIP 生活搭子</h1><p>说出你的消费需求，发现适用的会员权益。从酒店到观影，让每一次消费都更心中有数。</p><div class="hero-features"><span>✧ 理解需求</span><span>◇ 匹配权益</span><span>✓ 核验条件</span><span>▤ 确认方案</span></div></div><section class="journey"><div class="journey-top"><div><h2>消费全流程体验</h2><p>点击左侧手机或下方卡片，体验完整消费过程</p></div><div class="profile-toggle" aria-label="演示会员身份"><button type="button" data-profile="vip">88VIP会员</button><button type="button" data-profile="normal">非会员</button></div></div><div id="journeySteps" class="journey-steps"></div><div class="journey-grid" id="journeyCards"></div><p class="journey-note">独立产品概念演示 · 房源、场次、价格及权益资格为示例 · 不会产生实际订单。</p></section></section><aside class="side" id="dashboard"><h1>策略与评测后台</h1><p>会员权益 · 决策配置 · 效果验证 | 当前仅使用演示数据</p><div class="metrics" id="metrics"><div class="metric"><span>本次匹配权益</span><strong id="metricBenefits">—</strong><small>当前演示可用项</small></div><div class="metric"><span>本次预计节省</span><strong id="metricSaving">—</strong><small>非会员按扣除年费后计算</small></div><div class="metric"><span>预算内达成</span><strong id="metricBudget">—</strong><small>当前方案判断，非真实统计</small></div><div class="metric"><span>本次会话决策次数</span><strong id="metricRuns">0</strong><small>仅本浏览器本次会话</small></div></div><div class="panel" id="evaluation"><h2>实验与效果评测</h2><div class="evaluation-box"><div><b>A · 规则基线</b><p>可运行 · 关键词意图理解</p><p>规则核验与确定性计算</p></div><div><b>B · 大模型意图理解</b><p>待接入真实模型并开展评测</p><p>尚无真实 A/B 转化数据</p></div></div><p class="source">目标指标：权益发现率、推荐准确率、预算内达成率、开卡意愿及长期留存。真实用户实验尚未开展。</p></div><div class="panel" id="modelpanel"><h2>规则 / 模型与资格核验</h2><div class="choices" id="members"><button class="on" data-v="vip">88VIP 已开通</button><button data-v="normal">尚未开卡</button></div><div class="fields"><div><label for="fee">模拟开卡年费 ¥</label><input type="number" id="fee" min="0" value="88"></div><div><label for="mode">意图理解方式</label><select id="mode"><option value="rules">规则基线</option><option value="llm">大模型（需配置）</option></select></div></div><div class="checks"><label><input type="checkbox" id="qualified" checked> 开卡及即时使用资格已模拟核验</label></div><div class="source" id="modelstatus"></div></div><div class="panel"><h2>快速场景</h2><div class="scenarios"><button data-s="trip">周末旅行</button><button data-s="movie">单独观影</button><button data-s="food">点外卖</button><button data-s="refund">申请退票</button><button data-s="overlap">权益重叠</button><button data-s="unknown">资格未知</button></div></div><div class="panel" id="orderpanel"><h2>模拟业务接口</h2><p class="source">价格、余额、资格及服务条件是测试输入，不代表真实订单。</p><div id="orders"></div></div><div class="panel" id="trace"><details open><summary>决策日志 · 研发 / 评测</summary><div class="trace" id="log">等待运行</div></details></div><div class="panel" id="knowledge"><details><summary>权益知识库 · 来源及核验边界</summary><div class="trace" id="kb">加载中</div></details></div></aside></main><script>
 if(location.protocol==='file:'){document.getElementById('result').innerHTML='<div class="warning">当前直接打开了 HTML 文件，无法连接后台。请在终端进入项目文件夹，执行 <b>python3 server.py</b>，再打开 <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>。</div>';document.getElementById('run').disabled=true;throw new Error('Please start the local HTTP server.');}
 const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let member='vip';const scenes={hotel:'酒店含早方案',movie:'观影',food:'闪购外卖',refund:'机票退票费'};const defaults={hotel:{price:606,alternative:498,covered_people:1},movie:{price:65},food:{price:35},refund:{price:1000}};let data={};function reset(){data=Object.fromEntries(Object.entries(defaults).map(([k,v])=>[k,{...v,provided:true,eligible:true,state:'available',covered:false,worse:false,new_eligible:true}]))}reset();function drawOrders(){ $('orders').innerHTML=Object.entries(data).map(([k,v])=>`<details style="border-top:1px solid #eee;padding:12px 0" ${k==='hotel'?'open':''}><summary>${scenes[k]}</summary><div class="fields"><div><label>原方案金额 ¥</label><input type="number" min="0" data-k="${k}" data-f="price" value="${v.price}"></div><div><label>权益状态</label><select data-k="${k}" data-f="state">${[['available','可用'],['unclaimed','待领取'],['used','已用尽'],['expired','已过期'],['unknown','未知']].map(([a,b])=>`<option value="${a}" ${a===v.state?'selected':''}>${b}</option>`).join('')}</select></div>${k==='hotel'?`<div><label>无早房价 ¥</label><input type="number" min="0" data-k="${k}" data-f="alternative" value="${v.alternative}"></div><div><label>早餐覆盖人数</label><input type="number" min="0" data-k="${k}" data-f="covered_people" value="${v.covered_people}"></div>`:''}</div><div class="checks">${[['provided','订单已取得'],['eligible','符合模拟规则'],['covered','已有同等权益'],['worse','替代服务更差'],...(k==='refund'?[['new_eligible','新开卡适用已有订单']]:[])].map(([f,n])=>`<label><input type="checkbox" data-k="${k}" data-f="${f}" ${v[f]?'checked':''}> ${n}</label>`).join('')}</div></details>`).join('');$('orders').querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{data[el.dataset.k][el.dataset.f]=el.type==='checkbox'?el.checked:el.type==='number'?Number(el.value):el.value;run()})}
 function setMember(v){member=v;document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{setMember(b.dataset.v);run()});let scenario={trip:'周末想去杭州住一晚，想要早餐，晚上看场电影，预算600左右。',movie:'周末看场电影，预算100元。',food:'今天想点外卖，预算40元。',refund:'我需要申请国内机票退票。',overlap:'周末住酒店，需要早餐，预算600元。',unknown:'周末看场电影。'};document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{reset();$('query').value=scenario[b.dataset.s];setMember(b.dataset.s==='overlap'?'normal':'vip');if(b.dataset.s==='overlap')data.hotel.covered=true;if(b.dataset.s==='unknown')data.movie.state='unknown';drawOrders();run()});const labels={use:'为你找到适用的会员权益',open:'这次消费，开通会员更划算',adjust_budget:'帮你看看怎样更划算',silent:'为你整理了消费方案',verify:'还有一些权益条件需要确认',no_intent:'告诉我你想买什么'};
@@ -53,7 +140,7 @@ function render(){if(!last)return;let d=last,i=d.intent,a=d.action,active=['use'
 else if(screen==='detail'){body=steps(2)+`<div class="detail-title">${a==='adjust_budget'?'先找到预算内的方案':d.member?'你的会员权益方案':a==='open'?'开卡及权益使用方案':'本次消费方案'}</div><div class="detail-sub">${i.people}人 · ${i.scenes.map(k=>sceneNames[k]).join(' / ')}</div>${d.items.map(x=>`<div class="detail-card"><h3>${esc(x.name)} <span class="state ${x.state}">${status[x.state]}</span>${x.saving>0?`<span style="float:right;color:var(--orange)">省 ${fmt(x.saving)}</span>`:''}</h3><p>${esc(explain(x))}</p>${applicable(x)&&x.scene==='hotel'?`<div class="kv"><span>同等含早房价</span><b>${fmt(data.hotel.price)}</b></div><div class="kv"><span>无早房价 + 会员早餐</span><b>${fmt(data.hotel.alternative)}</b></div>`:''}${applicable(x)?`<p>${x.state==='claim'?'使用步骤：先领取权益，再选择适用订单。':x.state==='potential'?'使用步骤：确认开卡资格，开通后领取或激活权益。':'使用步骤：在对应消费渠道确认权益并使用。'}</p>`:''}</div>`).join('')}${cost(d,active)}${a==='adjust_budget'&&i.scenes.includes('hotel')?`<div class="detail-card"><h3>换一家更符合预算的酒店</h3><p>查看可选房型，选择符合预算的示例报价后重新计算。</p>${button('查看更低房价','cheaper',false)}</div>`:''}<div class="actions">${active&&a!=='adjust_budget'?button(d.member?'继续确认消费方案':'继续确认开卡方案','review'):a==='adjust_budget'?button('修改需求或预算','edit'):a==='verify'?button('返回修改需求','edit'):d.items.length?button('按原方案继续','original'):''}${!d.member&&active?button('暂不开卡，按原方案继续','original',false):''}${button('返回消费方案','result',false)}</div>`}
 else if(screen==='review'){let original=choice==='original';body=steps(3)+`<div class="detail-title">${original?'确认原消费方案':d.member?'确认权益使用方案':'确认开卡及消费方案'}</div><div class="detail-sub">请确认以下消费安排。</div>${d.items.map(x=>`<div class="detail-card"><h3>${sceneNames[x.scene]}</h3><div class="kv"><span>预计支付</span><b>${fmt(data[x.scene].price-(original?0:x.saving))}</b></div>${!original&&applicable(x)?`<p>${esc(x.name)} · ${status[x.state]}</p>`:''}</div>`).join('')}${cost(d,true,original)}<p class="quote-note">这是产品演示，不会真实开卡、订房、购票或扣款。</p><div class="actions">${button('确认方案（演示）','done')}${button('返回权益详情','detail',false)}</div>`}
 else{let original=choice==='original';body=`<div class="checkmark">✓</div><h2 class="done-title">方案已确认</h2><p class="done-sub">你已完成本次体验流程，未产生实际订单或扣费。</p>${cost(d,true,original)}<div class="actions">${button('返回消费方案','result')}${button('体验其他消费场景','edit',false)}</div>`} $('result').innerHTML=body;}
-function go(dest){if(!last)return;if(dest==='edit'){screen='result';render();$('query').focus();$('query').scrollIntoView({block:'center',behavior:'smooth'});return}if(dest==='cheaper'){const delta=Math.max(0,data.hotel.price-data.hotel.alternative);const reduction=Math.min(100,Math.max(0,data.hotel.alternative-1));data.hotel.alternative-=reduction;data.hotel.price=data.hotel.alternative+delta;drawOrders();run('detail');return}if(dest==='review')choice='benefits';if(dest==='original'){choice='original';dest='review'}screen=dest;render();document.querySelector('.phonewrap').scrollIntoView({block:'start',behavior:'smooth'});}
+function go(dest){if(!last)return;if(dest==='edit'){screen='result';render();$('phoneScroll').scrollTop=0;$('query').focus({preventScroll:true});return}if(dest==='cheaper'){const delta=Math.max(0,data.hotel.price-data.hotel.alternative);const reduction=Math.min(100,Math.max(0,data.hotel.alternative-1));data.hotel.alternative-=reduction;data.hotel.price=data.hotel.alternative+delta;drawOrders();run('detail');return}if(dest==='review')choice='benefits';if(dest==='original'){choice='original';dest='review'}screen=dest;render();if(window.innerWidth<=780)document.querySelector('.phonewrap').scrollIntoView({block:'start',behavior:'smooth'});}
 $('result').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go)});$('back').onclick=()=>go(screen==='done'?'result':screen==='review'?'detail':'result');
 async function run(next='result'){let id=++seq;$('run').disabled=true;$('run').textContent='正在匹配…';try{let r=await fetch('/api/recommend',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:$('query').value,member,mode:$('mode').value,fee:Number($('fee').value),qualified:$('qualified').checked,orders:data})});if(!r.ok)throw Error('服务请求失败');let d=await r.json();if(id!==seq)return;last=d;screen=typeof next==='string'?next:'result';choice='benefits';render();$('log').textContent=JSON.stringify({意图:d.intent,会员身份:member,决策:d.action,模型异常:d.warning,权益核验:d.items.map(x=>({权益:x.id,状态:x.state,原因:x.reason,节省:x.saving})),模拟金额:{原方案:d.before,权益:d.saving,年费:d.fee,方案:d.after,净收益:d.net}},null,2)}catch(e){$('entry').hidden=false;$('result').textContent='暂时无法生成方案，请稍后重试。如果正在本地运行，请确认 Python 服务已启动。'}finally{if(id===seq){$('run').disabled=false;$('run').textContent='生成消费方案'}}}
 
@@ -80,7 +167,7 @@ oldRender();if(screen==='result'||screen==='detail'){let node=$('result').queryS
 if(screen==='review'){let nodes=$('result').querySelectorAll('.detail-card');last.items.forEach((x,i)=>{if(selectionValid(x.scene)&&nodes[i])nodes[i].insertAdjacentHTML('beforeend','<p class="selected-note">'+esc(selections[x.scene].name)+'</p>');});}
 };
 go=function(dest){if(!last)return;
-if(dest.startsWith('book_')){if(!['book_hotel','book_movie','movie_seats','book_food','book_refund'].includes(screen))sceneReturn=screen==='result'?'result':'detail';screen=dest;render();document.querySelector('.phonewrap').scrollIntoView({block:'start',behavior:'smooth'});return}
+if(dest.startsWith('book_')){if(!['book_hotel','book_movie','movie_seats','book_food','book_refund'].includes(screen))sceneReturn=screen==='result'?'result':'detail';screen=dest;render();if(window.innerWidth<=780)document.querySelector('.phonewrap').scrollIntoView({block:'start',behavior:'smooth'});return}
 if(/^hotel_[0-2]$/.test(dest)){let h=hotelOptions()[Number(dest.slice(-1))];data.hotel.price=h.price;data.hotel.alternative=h.alternative;selections.hotel={...h};drawOrders();run(sceneReturn);return}
 if(/^show_[0-2]$/.test(dest)){let m=movieShows[Number(dest.slice(-1))];draftMovie={...m,unit:Math.max(1,Number(catalog.movie.price)+m.diff),seats:[]};screen='movie_seats';render();return}
 if(dest.startsWith('seat_')&&draftMovie){let k=dest.slice(5);if(unavailable.has(k)||!/^[A-F][1-8]$/.test(k))return;let a=draftMovie.seats;if(a.includes(k))draftMovie.seats=a.filter(s=>s!==k);else if(a.length<Math.min(4,Math.max(1,last.intent.people)))a.push(k);render();return}
@@ -114,6 +201,44 @@ document.querySelectorAll('[data-profile]').forEach(b=>b.onclick=()=>{setMember(
 document.querySelector('.journey').addEventListener('click',e=>{let b=e.target.closest('[data-jump]');if(b&&!b.disabled)go(b.dataset.jump)});
 document.querySelectorAll('[data-section]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-section]').forEach(x=>x.classList.toggle('active',x===b));let el=$(b.dataset.section);if(el){let detail=el.querySelector('details');if(detail)detail.open=true;el.scrollIntoView({block:'start',behavior:'smooth'});}});
 setView(new URLSearchParams(location.search).get('view')==='backend'?'backend':'consumer',false);syncProfile();
+
+
+/* V1.7: fixed phone viewport, context-aware action dock, and accurate back navigation. */
+let previousPhoneScreen=null;
+function fitDevice(){
+ const mobile=window.innerWidth<=780;
+ const available=Math.max(475,window.innerHeight-135);
+ const cap=currentView==='backend'?.82:.96;
+ const widthCap=currentView==='backend'?Math.max(250,Math.min(330,window.innerWidth*.25)):Math.max(280,Math.min(390,window.innerWidth*.32));
+ const scale=Math.max(.56,Math.min(cap,available/844,widthCap/390));
+ document.documentElement.style.setProperty('--device-scale',mobile?'1':String(scale));
+}
+function dockActions(){
+ const sc=$('phoneScroll'),dock=$('phoneDock');if(!sc||!dock)return;
+ const actions=$('result').querySelector('.actions');
+ dock.replaceChildren();
+ if(actions&&actions.querySelector('button')){
+   dock.appendChild(actions);dock.hidden=false;
+ }else{dock.hidden=true;}
+ if(previousPhoneScreen!==screen){sc.scrollTop=0;previousPhoneScreen=screen;}
+}
+const renderBeforeErgonomics=render;
+render=function(){renderBeforeErgonomics();dockActions();};
+$('phoneDock').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b&&!b.disabled)go(b.dataset.go);});
+const setViewBeforeErgonomics=setView;
+setView=function(v,scroll=true){setViewBeforeErgonomics(v,scroll);fitDevice();};
+window.addEventListener('resize',fitDevice,{passive:true});
+fitDevice();
+$('viewConsumer').onclick=()=>setView('consumer');
+$('viewBackend').onclick=()=>setView('backend');
+const buildJourneyBeforeErgonomics=buildJourney;
+buildJourney=function(){
+ buildJourneyBeforeErgonomics();if(!last)return;
+ const cur=screen==='review'||screen==='done'?3:screen==='book_hotel'?1:['book_movie','movie_seats'].includes(screen)?2:0;
+ const names=['AI理解需求','酒店选择','电影购票','确认方案'];
+ const dest=['edit','book_hotel','book_movie','detail'];
+ $('journeySteps').innerHTML=names.map((n,i)=>'<button type="button" data-jump="'+dest[i]+'" class="'+(i===cur?'active':'')+'" '+((i===1&&!last.intent.scenes.includes('hotel'))||(i===2&&!last.intent.scenes.includes('movie'))||(i===3&&!last.items.length)?'disabled':'')+' aria-current="'+(i===cur?'step':'false')+'">'+(i+1)+' · '+n+'</button>').join('');
+};
 
 $('run').onclick=run;$('mode').onchange=run;$('qualified').onchange=run;$('fee').onchange=run;drawOrders();fetch('/api/status').then(r=>r.json()).then(d=>{$('modelstatus').innerHTML=`<span class="dot ${d.llm_configured?'ok':''}"></span>${d.cloud_demo?'在线演示 · 规则基线（不调用大模型）':d.llm_configured?'模型已配置（连通性待验证）':'未配置大模型，当前可运行规则基线'}`});fetch('/api/benefits').then(r=>r.json()).then(d=>{$('kb').innerHTML=d.map(b=>`<p><b>${esc(b.name)}</b><br>${esc(b.source)}<br>${esc(b.verified)}</p>`).join('')});run();
 </script></html>
