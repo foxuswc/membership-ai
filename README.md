@@ -2,6 +2,14 @@
 
 这是基于88VIP业务研究及Figma高保真概念设计开发的独立决策验证项目，不是淘宝官方系统。Figma仍是高保真设计稿，网页为可交互的消费流程及研发验证台。
 
+## 在线部署（Render，免费演示）
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/foxuswc/membership-ai)
+
+点击按钮，登录 Render 并确认创建一个 Free Web Service。配置已在 render.yaml 中定义：Singapore、Gunicorn、构建时运行测试、/health 健康检查。部署成功后，使用 Render 控制台实际分配的 HTTPS 网址访问。默认关闭自动部署（避免其他人通过公开仓库部署的副本被意外更新）；如需更新，可在 Render 手动部署最新 main 提交。
+
+公开演示使用 cloud_app.py 的 WSGI 接口，强制规则基线，不调用模型、不读取真实会员信息、不产生实际交易。请勿输入个人敏感信息。免费实例空闲15分钟后可能休眠，重新访问可能需要约1分钟。原有本地启动方式不变。
+
 ## 启动（Python 3.10+，无第三方依赖）
 
 解压 ZIP，在终端进入文件夹，执行：
