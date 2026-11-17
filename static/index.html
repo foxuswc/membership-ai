@@ -161,7 +161,7 @@ const applicable=x=>['use','claim','potential'].includes(x.state)&&x.saving>0;
 function explain(x){const o=data[x.scene]||{};if(x.state==='covered')return '你已有其他会员权益，无需重复开通。';if(x.state==='unknown'){if(!o.provided)return '还未获取订单价格，暂时无法计算优惠。';if(x.scene==='hotel'&&o.covered_people<(last?.intent.people||1))return '免费早餐人数可能不足，需确认额外早餐费用。';if(x.scene==='refund'&&!last?.member&&!o.new_eligible)return '需确认新开会员是否适用于已购机票。';return '请先确认权益资格和使用条件。'}if(x.state==='silent'){if(o.state==='expired')return '该权益已过期。';if(o.state==='used')return '该权益已用完。';if(o.worse)return '其他方案的服务或退改条件更适合你。';if(x.scene==='hotel'&&!last?.intent.breakfast)return '本次不需要早餐，暂不推荐该权益。';return '本次订单暂不符合使用条件。'}if(x.scene==='hotel')return '相同房型、相同退改条件，使用会员免费早餐更划算。';if(x.scene==='movie')return (x.state==='claim'?'先领取观影券，':'')+'满5.01元可用，领取后当月有效。';if(x.scene==='food')return (x.state==='claim'?'先领取红包，':'')+'本单可享5元会员红包。';if(x.scene==='refund')return '符合条件的退票手续费可享88折。';return '可用于本次消费。'}
 function steps(n){return `<div class="step">${['消费方案','权益详情','确认方案'].map((v,i)=>`${i?'<i></i>':''}${i+1===n?`<b>${i+1} ${v}</b>`:`<span>${i+1} ${v}</span>`}`).join('')}</div>`}
 function button(label,action,primary=true){return `<button type="button" class="${primary?'primary':'secondary'}" data-go="${action}">${label}</button>`}
-function cost(d,showAfter=true,original=false){let total=original?d.before:d.after;let budget=d.intent.budget;return `<div class="amounts"><div class="kv"><span>${d.member?'使用会员权益前':'不开通会员'}</span><b>${fmt(d.before)}</b></div>${showAfter?`${!d.member&&!original?`<div class="kv"><span>会员年费</span><b>${fmt(d.fee)}</b></div>`:''}<div class="kv total"><span>${original?'按原方案消费':d.member?'使用权益后预计支付':'开卡并使用权益后'}</span><b>${fmt(total)}</b></div>`:''}${budget!==null?`<div class="kv"><span>你的预算</span><b>${fmt(budget)}</b></div>${showAfter?`<div class="${total<=budget?'budget-ok':'budget-over'}">${total<=budget?`✓ 预算内，还剩 ${fmt(budget-total)}`:`超出预算 ${fmt(total-budget)}，建议先调整方案`}</div>`:''}`:''}</div>`}
+function cost(d,showAfter=true,original=false){let total=original?d.before:d.after;let budget=d.intent.budget;return `<div class="amounts"><div class="kv"><span>${d.member?'使用会员权益前':'不开通会员'}</span><b>${fmt(d.before)}</b></div>${showAfter?`${!original&&d.saving>0?`<div class="kv"><span>本次权益优惠</span><b style="color:#39754c">−${fmt(d.saving)}</b></div>`:''}${!d.member&&!original?`<div class="kv"><span>会员年费</span><b>${fmt(d.fee)}</b></div>`:''}<div class="kv total"><span>${original?'按原方案消费':d.member?'使用权益后预计支付':'开卡并使用权益后'}</span><b>${fmt(total)}</b></div>`:''}${budget!==null?`<div class="kv"><span>你的预算</span><b>${fmt(budget)}</b></div>${showAfter?`<div class="${total<=budget?'budget-ok':'budget-over'}">${total<=budget?`✓ 预算内，还剩 ${fmt(budget-total)}`:`超出预算 ${fmt(total-budget)}，建议先调整方案`}</div>`:''}`:''}</div>`}
 function rowItem(x){return `<div class="item"><b>${esc(x.name)}</b><span class="state ${x.state}">${status[x.state]}</span>${x.saving>0?`<span class="price">省 ${fmt(x.saving)}</span>`:''}<div class="muted">${esc(explain(x))}</div></div>`}
 function render(){if(!last)return;let d=last,i=d.intent,a=d.action,active=['use','open','adjust_budget'].includes(a);$('entry').hidden=screen!=='result';$('back').disabled=screen==='result';$('navtitle').textContent=({result:'AI 万能搜',detail:'会员权益详情',review:'确认消费方案',done:'方案已确认'})[screen];let body='';if(screen==='result'){let title=labels[a];let main=active?`<div class="member"><span class="tag">88VIP</span>${d.member?'你的会员专享':'本次开卡价值'}<h3>${d.member?'本次预计可省 ':'开卡后预计净省 '}${fmt(d.member?d.saving:d.net)}</h3><p>${a==='adjust_budget'?'已为你匹配优惠，但总支出仍超预算。':'这次消费可以用上'+d.items.filter(applicable).length+'项会员权益'+(d.member?'。':'，已扣除会员年费。')}</p><button type="button" class="member-link" data-go="detail">${a==='adjust_budget'?'查看调整建议':d.member?'查看权益详情':'查看开卡详情'} ›</button></div>`:a==='verify'?'<div class="warning">部分权益还需要确认，暂时无法保证本次优惠。</div>':a==='silent'?`<div class="quiet">${d.member?'本次暂时没有额外可用的会员权益。':d.items.some(x=>x.state==='covered')?'你已有适用的会员权益，无需重复开卡。':'仅看本次消费，暂时不需要开通88VIP。'}</div>`:'<div class="quiet">可以试试酒店住宿、看电影、点外卖等需求。</div>';body=`<h2><span class="brand">✧</span> ${title}</h2><div class="muted">${i.people}人 · ${i.scenes.map(k=>sceneNames[k]).join(' / ')||'等待你的消费需求'}</div>${main}${d.items.map(rowItem).join('')}${d.items.length?cost(d,active):''}${i.scenes.includes('hotel')?'<p class="quote-note">以上仅包含本次住宿及已列出的消费，交通等费用另计。</p>':''}<div class="actions">${active?button(a==='adjust_budget'?'查看并调整方案':d.member?'查看权益使用方案':'查看开卡与消费方案','detail'):a==='verify'?button('查看待确认条件','detail'):a==='silent'&&d.items.length?button('查看消费方案','detail'):''}${a!=='no_intent'?button('修改消费需求','edit',false):''}</div>`}
 else if(screen==='detail'){body=steps(2)+`<div class="detail-title">${a==='adjust_budget'?'先找到预算内的方案':d.member?'你的会员权益方案':a==='open'?'开卡及权益使用方案':'本次消费方案'}</div><div class="detail-sub">${i.people}人 · ${i.scenes.map(k=>sceneNames[k]).join(' / ')}</div>${d.items.map(x=>`<div class="detail-card"><h3>${esc(x.name)} <span class="state ${x.state}">${status[x.state]}</span>${x.saving>0?`<span style="float:right;color:var(--orange)">省 ${fmt(x.saving)}</span>`:''}</h3><p>${esc(explain(x))}</p>${applicable(x)&&x.scene==='hotel'?`<div class="kv"><span>同等含早房价</span><b>${fmt(data.hotel.price)}</b></div><div class="kv"><span>无早房价 + 会员早餐</span><b>${fmt(data.hotel.alternative)}</b></div>`:''}${applicable(x)?`<p>${x.state==='claim'?'使用步骤：先领取权益，再选择适用订单。':x.state==='potential'?'使用步骤：确认开卡资格，开通后领取或激活权益。':'使用步骤：在对应消费渠道确认权益并使用。'}</p>`:''}</div>`).join('')}${cost(d,active)}${a==='adjust_budget'&&i.scenes.includes('hotel')?`<div class="detail-card"><h3>换一家更符合预算的酒店</h3><p>查看可选房型，选择符合预算的示例报价后重新计算。</p>${button('查看更低房价','cheaper',false)}</div>`:''}<div class="actions">${active&&a!=='adjust_budget'?button(d.member?'继续确认消费方案':'继续确认开卡方案','review'):a==='adjust_budget'?button('修改需求或预算','edit'):a==='verify'?button('返回修改需求','edit'):d.items.length?button('按原方案继续','original'):''}${!d.member&&active?button('暂不开卡，按原方案继续','original',false):''}${button('返回消费方案','result',false)}</div>`}
@@ -269,7 +269,7 @@ buildJourney=function(){
 
 
 /* V1.8: explicit request lifecycle and user-led staged checkout. */
-let busy=false, errorMessage='', requestSnapshot='', budgetAccepted=false, retryPage='result';
+let busy=false, errorMessage='', requestSnapshot='', budgetAccepted=false, retryPage='result', explicitChoice=null;
 const checkoutRender=render, legacyGo=go;
 const sceneTitle={hotel:'住宿',movie:'观影',food:'外卖',refund:'机票退票'};
 const explicitButton=(label,dest,disabled=false)=>'<button type="button" class="primary" data-go="'+dest+'" '+(disabled?'disabled':'')+'>'+esc(label)+'</button>';
@@ -280,7 +280,7 @@ function unresolvedOrder(){return !!last?.items.some(x=>!data[x.scene]?.provided
 function syncBusy(){ $('run').disabled=busy;$('runBackend').disabled=busy;document.querySelectorAll('[data-profile]').forEach(b=>b.disabled=busy);}
 function updateEmptyDashboard(){for(const id of ['metricBenefits','metricSaving','metricBudget'])$(id).textContent='—';$('metricRuns').textContent=String(sessionRuns);}
 function resetToEntry({clear=false}={}){
- ++seq;busy=false;errorMessage='';last=null;screen='entry';choice='benefits';budgetAccepted=false;requestSnapshot='';draftMovie=null;
+ ++seq;busy=false;errorMessage='';last=null;screen='entry';choice='benefits';explicitChoice=null;budgetAccepted=false;requestSnapshot='';draftMovie=null;
  if(clear){reset();selections={};catalog={hotel:{...defaults.hotel},movie:{...defaults.movie}};drawOrders();}
  $('run').textContent='生成消费方案 →';syncBusy();$('log').textContent='等待生成消费方案';render();
 }
@@ -302,14 +302,14 @@ function resultPage(){
  let d=last;if(!d.items.length)return plannedHeader('再告诉我一些需求')+'<div class="empty-state"><h2>暂未匹配到支持的消费场景</h2><p>目前支持酒店住宿、电影票、外卖和机票退票。可以补充具体需求后重新生成。</p></div><div class="actions">'+button('修改消费需求','edit')+'</div>';
  return plannedHeader('为你整理了消费方案')+benefitBanner(d)+
  '<section class="plan-section"><h3>你的消费安排</h3><div class="muted">先选具体商品，再确认最终费用。</div>'+flowProgress()+d.intent.scenes.map(sceneCard).join('')+'</section>'+
- cost(d,isRecommended(d),!isRecommended(d))+
+ cost(d,true,!isRecommended(d))+
  (d.action==='adjust_budget'?'<div class="flow-alert">当前方案超过预算。可选择更低价的房型或场次，也可以修改需求。</div>':'')+
  '<p class="quote-note">金额基于示例供给，尚未形成实际订单；未包含未列出的消费。</p><div class="actions">'+bookingAction()+button('修改消费需求','edit',false)+'</div>';
 }
 function detailPage(){
  let d=last;return plannedHeader('权益与费用明细')+benefitBanner(d)+
  '<section class="plan-section"><h3>本次权益条件</h3>'+d.items.map(x=>'<div class="detail-card">'+rowItem(x)+(applicable(x)&&x.scene==='hotel'?'<div class="kv"><span>同等含早方案</span><b>'+fmt(data.hotel.price)+'</b></div><div class="kv"><span>无早房价 + 会员早餐</span><b>'+fmt(data.hotel.alternative)+'</b></div>':'')+'</div>').join('')+'</section>'+
- cost(d,isRecommended(d),!isRecommended(d))+'<div class="actions">'+bookingAction()+button('返回消费方案','result',false)+'</div>';
+ cost(d,true,!isRecommended(d))+'<div class="actions">'+bookingAction()+button('返回消费方案','result',false)+'</div>';
 }
 function reviewPage(){
  const d=last,canUse=isRecommended(d),total=totalForChoice(),over=d.intent.budget!==null&&total>d.intent.budget,missing=unresolvedOrder();
@@ -359,7 +359,7 @@ async function generate(next='result'){
   if(!resp.ok)throw Error('请求失败');
   const d=await resp.json();if(id!==seq)return;
   if(!d||!d.intent||!Array.isArray(d.items))throw Error('响应无效');
-  last=d;choice=isRecommended(d)?'benefits':'original';screen=retryPage==='detail'?'detail':'result';sessionRuns++;
+  last=d;choice=isRecommended(d)?(explicitChoice||(d.member?'benefits':'original')):'original';screen=retryPage==='review'&&!requiredChoices().length?'review':retryPage==='detail'?'detail':'result';sessionRuns++;
   $('log').textContent=JSON.stringify({意图:d.intent,会员身份:member,决策:d.action,模型异常:d.warning,权益核验:d.items.map(x=>({权益:x.id,状态:x.state,原因:x.reason,节省:x.saving})),模拟金额:{原方案:d.before,权益:d.saving,年费:d.fee,方案:d.after,净收益:d.net}},null,2);
  }catch(e){if(id!==seq)return;last=null;screen='error';errorMessage='暂时无法连接服务。你的需求与已选项目仍保留，可以重新生成。'}
  finally{if(id===seq){busy=false;render()}}
@@ -371,9 +371,9 @@ go=function(dest){
  if(dest==='new'){$('query').value='';resetToEntry({clear:true});$('query').focus({preventScroll:true});return}
  if(dest==='retry'){run(retryPage);return}
  if(busy||!last)return;
- if(dest==='choose_original'||dest==='choose_benefits'){choice=dest.slice(7);if(choice==='benefits'&&!isRecommended())choice='original';budgetAccepted=false;render();return}
+ if(dest==='choose_original'||dest==='choose_benefits'){choice=dest.slice(7);if(choice==='benefits'&&!isRecommended())choice='original';explicitChoice=choice;budgetAccepted=false;render();return}
  if(dest==='review'||dest==='original'){
-  if(dest==='original'||!isRecommended())choice='original';
+  if(dest==='original'){choice='original';explicitChoice='original';}else if(!isRecommended())choice='original';
   const missing=requiredChoices();if(missing.length){sceneReturn='result';screen='book_'+missing[0];render();return}
   screen='review';budgetAccepted=false;render();return;
  }
@@ -381,7 +381,7 @@ go=function(dest){
   if(requiredChoices().length||unresolvedOrder()||(last.intent.budget!==null&&totalForChoice()>last.intent.budget&&!budgetAccepted))return;
   screen='done';render();return;
  }
- if(dest.startsWith('book_')&&!last.intent.scenes.includes(dest.slice(5)))return;
+ if(dest.startsWith('book_')){if(!last.intent.scenes.includes(dest.slice(5)))return;if(!screen.startsWith('book_')&&screen!=='movie_seats')sceneReturn=screen==='review'?'review':screen==='detail'?'detail':'result';screen=dest;render();return;}
  legacyGo(dest);
 };
 $('result').addEventListener('change',e=>{if(e.target.id==='budgetAck'){budgetAccepted=e.target.checked;const b=$('phoneDock').querySelector('[data-go="done"]');if(b)b.disabled=unresolvedOrder()||(last.intent.budget!==null&&totalForChoice()>last.intent.budget&&!budgetAccepted);}});
@@ -400,5 +400,5 @@ const drawOrdersV18=drawOrders;
 drawOrders=function(){drawOrdersV18();$('orders').querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{data[el.dataset.k][el.dataset.f]=el.type==='checkbox'?el.checked:el.type==='number'?Number(el.value):el.value;refreshIfGenerated()})};
 $('runBackend').onclick=()=>run();
 
-$('run').onclick=()=>run();$('mode').onchange=refreshIfGenerated;$('qualified').onchange=refreshIfGenerated;$('fee').onchange=refreshIfGenerated;drawOrders();fetch('/api/status').then(r=>r.json()).then(d=>{$('modelstatus').innerHTML=`<span class="dot ${d.llm_configured?'ok':''}"></span>${d.cloud_demo?'在线演示 · 规则基线（不调用大模型）':d.llm_configured?'模型已配置（连通性待验证）':'未配置大模型，当前可运行规则基线'}`});fetch('/api/benefits').then(r=>r.json()).then(d=>{$('kb').innerHTML=d.map(b=>`<p><b>${esc(b.name)}</b><br>${esc(b.source)}<br>${esc(b.verified)}</p>`).join('')});run();
+$('run').onclick=()=>run();$('mode').onchange=refreshIfGenerated;$('qualified').onchange=refreshIfGenerated;$('fee').onchange=refreshIfGenerated;drawOrders();fetch('/api/status').then(r=>r.json()).then(d=>{$('modelstatus').innerHTML=`<span class="dot ${d.llm_configured?'ok':''}"></span>${d.cloud_demo?'在线演示 · 规则基线（不调用大模型）':d.llm_configured?'模型已配置（连通性待验证）':'未配置大模型，当前可运行规则基线'}`});fetch('/api/benefits').then(r=>r.json()).then(d=>{$('kb').innerHTML=d.map(b=>`<p><b>${esc(b.name)}</b><br>${esc(b.source)}<br>${esc(b.verified)}</p>`).join('')});render();
 </script></html>
