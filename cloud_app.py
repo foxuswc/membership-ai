@@ -20,6 +20,9 @@ def application(environ, start_response):
     if method in ("GET", "HEAD"):
         if path in ("/", "/index.html"):
             return respond("200 OK", INDEX.read_bytes(), "text/html; charset=utf-8")
+        if path in ("/assets/hotel.png", "/assets/cinema.jpg"):
+            asset = INDEX.parent / path.lstrip("/")
+            return respond("200 OK", asset.read_bytes(), "image/png" if path.endswith(".png") else "image/jpeg")
         if path == "/health":
             return respond("200 OK", {"ok": True})
         if path == "/api/status":
