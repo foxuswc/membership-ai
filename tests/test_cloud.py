@@ -33,3 +33,15 @@ class CloudTests(unittest.TestCase):
         self.assertTrue(self.request("/api/recommend","POST",[])[0].startswith("400"))
     def test_no_source_exposure(self):
         self.assertTrue(self.request("/engine.py")[0].startswith("404"))
+
+    def test_hotel_photo(self):
+        status, body = self.request("/assets/hotel.png")
+        self.assertEqual(status, "200 OK")
+        self.assertTrue(body.startswith(b"\x89PNG\r\n\x1a\n"))
+    def test_cinema_photo(self):
+        status, body = self.request("/assets/cinema.jpg")
+        self.assertEqual(status, "200 OK")
+        self.assertTrue(body.startswith(b"\xff\xd8"))
+        self.assertTrue(body.endswith(b"\xff\xd9"))
+    def test_unknown_asset(self):
+        self.assertEqual(self.request("/assets/unknown.png")[0], "404 Not Found")
