@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: membership-ai
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt && python -m unittest discover -s tests -v
+    startCommand: gunicorn cloud_app:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 30
+    healthCheckPath: /health
+    autoDeployTrigger: off
