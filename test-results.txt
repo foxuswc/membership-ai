@@ -1,0 +1,27 @@
+test_breakfast_not_needed (test_engine.EngineTests.test_breakfast_not_needed) ... ok
+test_budget (test_engine.EngineTests.test_budget) ... ok
+test_coverage_people (test_engine.EngineTests.test_coverage_people) ... ok
+test_covered (test_engine.EngineTests.test_covered) ... ok
+test_expired (test_engine.EngineTests.test_expired) ... ok
+test_food (test_engine.EngineTests.test_food) ... ok
+test_missing (test_engine.EngineTests.test_missing) ... ok
+test_movie (test_engine.EngineTests.test_movie) ... ok
+test_new_movie (test_engine.EngineTests.test_new_movie) ... ok
+test_no_intent (test_engine.EngineTests.test_no_intent) ... ok
+test_open_qualified (test_engine.EngineTests.test_open_qualified) ... ok
+test_refund (test_engine.EngineTests.test_refund) ... ok
+test_refund_new (test_engine.EngineTests.test_refund_new) ... ok
+test_threshold (test_engine.EngineTests.test_threshold) ... ok
+test_trip (test_engine.EngineTests.test_trip) ... ok
+test_unclaimed (test_engine.EngineTests.test_unclaimed) ... ok
+test_unknown (test_engine.EngineTests.test_unknown) ... ok
+test_unknown_qualification (test_engine.EngineTests.test_unknown_qualification) ... ok
+test_used (test_engine.EngineTests.test_used) ... ok
+test_worse (test_engine.EngineTests.test_worse) ... ok
+test_model_fallback (test_engine.ModelBoundaryTests.test_model_fallback) ... ok
+test_model_intent_cannot_override_money (test_engine.ModelBoundaryTests.test_model_intent_cannot_override_money) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.029s
+
+OK
