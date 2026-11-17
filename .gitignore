@@ -1,0 +1,13 @@
+# Python cache and local environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+# Local secrets, logs and system files
+*.pem
+*.key
+*.log
+.DS_Store
